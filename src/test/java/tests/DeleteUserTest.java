@@ -6,8 +6,10 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.LoginPage;
+import sharedData.SharedData;
 
-public class DeleteUserTest {
+public class DeleteUserTest extends SharedData {
 
     @Test
     public void testMethod(){
@@ -41,19 +43,20 @@ public class DeleteUserTest {
 
         String token = response.path("token");
 
-//        System.out.println("=== Step 3: Get User ===");
-//        requestSpecification.header("Authorization", "Bearer "+token);
-//        response = requestSpecification.get("/Account/v1/User/"+userId);
-//
-//        System.out.println(response.getStatusLine());
-//        response.getBody().prettyPrint();
-//
-//        Assert.assertEquals(response.getStatusCode(),200);
-//        Assert.assertTrue(response.getStatusLine().contains("OK"));
+
+        System.out.println("=== Step 3: Get User ===");
+        requestSpecification.header("Authorization", "Bearer "+token);
+        response = requestSpecification.get("/Account/v1/User/"+userId);
+
+        System.out.println(response.getStatusLine());
+        response.getBody().prettyPrint();
+
+        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertTrue(response.getStatusLine().contains("OK"));
 
 
         System.out.println("=== Step 4: Delete User ===");
-        requestSpecification.header("Authorization", "Bearer "+token);
+//        requestSpecification.header("Authorization", "Bearer "+token);
         response = requestSpecification.delete("/Account/v1/User/"+userId);
 
         System.out.println(response.getStatusLine());
@@ -61,5 +64,35 @@ public class DeleteUserTest {
 
         Assert.assertEquals(response.getStatusCode(),204);
         Assert.assertTrue(response.getStatusLine().contains("No Content"));
+
+        System.out.println("=== Step 5: Get User ===");
+//        requestSpecification.header("Authorization", "Bearer "+token);
+        response = requestSpecification.get("/Account/v1/User/"+userId);
+
+        System.out.println(response.getStatusLine());
+        response.getBody().prettyPrint();
+
+        Assert.assertEquals(response.getStatusCode(),401);
+        Assert.assertTrue(response.getStatusLine().contains("Unauthorized"));
+
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.loginMethod(requestBody.get("userName").toString(),requestBody.get("password").toString());
+        loginPage.validetLoginMethod();
+
+//
+//        System.out.println("=== Step 3: Delete User ===");
+//        Response deleteResponse = RestAssured.given()
+//                .baseUri("https://demoqa.com")
+//                .header("Content-Type", "application/json")
+//                .header("Authorization", "Bearer " + token)
+//                .delete("/Account/v1/User/" + userId);
+//
+//        System.out.println(deleteResponse.getStatusLine());
+//        deleteResponse.getBody().prettyPrint();
+//
+//        Assert.assertEquals(deleteResponse.getStatusCode(), 204);
+//        Assert.assertTrue(deleteResponse.getStatusLine().contains("No Content"));
+
+
     }
 }
