@@ -1,4 +1,4 @@
-package sharedData;
+package frontEnd.sharedData;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

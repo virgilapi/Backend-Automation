@@ -1,6 +1,5 @@
-package pages;
+package frontEnd.pages;
 
-import helpers.ElementHelper;
 import logger.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

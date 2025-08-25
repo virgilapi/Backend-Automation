@@ -1,4 +1,4 @@
-package sharedData;
+package frontEnd.sharedData;
 
 import logger.LoggerUtility;
 import org.openqa.selenium.WebDriver;
